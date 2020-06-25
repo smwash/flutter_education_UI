@@ -1,7 +1,24 @@
 import 'package:education_flutter/constants.dart';
+import 'package:education_flutter/screens/profile_friends.dart';
+import 'package:education_flutter/screens/profile_scores.dart';
+import 'package:education_flutter/widgets/badge_tab.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,58 +70,50 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20.0),
-            TabCont(),
+            Container(
+              margin: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
+              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0, 10),
+                      blurRadius: 10),
+                ],
+              ),
+              child: TabBar(
+                  labelStyle: TextStyle(
+                      fontSize: 16.5,
+                      fontFamily: 'Poppins',
+                      letterSpacing: 1.2,
+                      fontWeight: FontWeight.w700),
+                  unselectedLabelColor: Colors.black54,
+                  labelColor: Colors.black,
+                  indicatorColor: kPrimaryColor,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                  controller: _tabController,
+                  tabs: [
+                    Tab(text: 'BADGES'),
+                    Tab(text: 'FRIENDS'),
+                    Tab(text: 'SCORES'),
+                  ]),
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  BadgeTab(),
+                  FriendsTab(),
+                  ScoresTab(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class TabCont extends StatefulWidget {
-  @override
-  _TabContState createState() => _TabContState();
-}
-
-class _TabContState extends State<TabCont> with SingleTickerProviderStateMixin {
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 10.0),
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black12, offset: Offset(0, 10), blurRadius: 10),
-        ],
-      ),
-      child: TabBar(
-          labelStyle: TextStyle(
-              fontSize: 16.5,
-              fontFamily: 'Poppins',
-              letterSpacing: 1.2,
-              fontWeight: FontWeight.w700),
-          unselectedLabelColor: Colors.black54,
-          labelColor: Colors.black,
-          indicatorColor: kPrimaryColor,
-          indicatorSize: TabBarIndicatorSize.label,
-          labelPadding: EdgeInsets.symmetric(horizontal: 2.0),
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'BADGES'),
-            Tab(text: 'FRIENDS'),
-            Tab(text: 'SCORES'),
-          ]),
     );
   }
 }
