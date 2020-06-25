@@ -5,7 +5,7 @@ class FriendsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-      padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0),
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
